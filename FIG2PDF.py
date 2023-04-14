@@ -7,7 +7,7 @@
 import glob
 
 # TODO: 整合进gui界面，要求：识别图片格式（jpg，png等，输入路径即可转换为PDF
-img_path = r'D:\Browser\convert-pack\images'
+
 
 
 # doc = fitz.open()
@@ -37,4 +37,5 @@ def pic2pdf(source_folder):
 if __name__ == '__main__':
     import fitz
 
+    img_path = input('输入地址：')
     pic2pdf(img_path)
