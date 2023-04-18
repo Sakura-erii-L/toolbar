@@ -4,7 +4,6 @@
 # author: Sakura
 # Description:fig to pdf
 
-import glob
 import os
 
 
@@ -16,9 +15,12 @@ def pic2pdf(source_folder):
         source_folder = source_folder.replace('\\', '/')
         source_folder = source_folder + "" if source_folder.endswith("/") else source_folder + "/"
         print(source_folder)
+        if not os.path.exists(source_folder):
+            print('there is no dir:', source_folder)
+            return False
         included_extensions = ['jpg', 'jpeg', 'png']
         included_extensions += [i.upper() for i in included_extensions]
-        file_names = [source_folder+fn for fn in os.listdir(source_folder)
+        file_names = [source_folder + fn for fn in os.listdir(source_folder)
                       if any(fn.endswith(ext) for ext in included_extensions)]
 
         print(file_names)
@@ -31,6 +33,7 @@ def pic2pdf(source_folder):
             imgpdf = fitz.open("pdf", pdfbytes)
             doc.insert_pdf(imgpdf)  # 将当前页插入文档
         doc.save(source_folder+"target.pdf")  # 保存pdf文件
+        return True
     except Exception as e:
         print(e)
         print("目录：[ %s ] 转换pdf异常" % source_folder)
